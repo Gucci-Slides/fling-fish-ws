@@ -22,6 +22,16 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+// Serve static HTML file for the root path
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Add a simple health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 // Create the HTTP server
 const server = http.createServer(app);
 
@@ -42,11 +52,6 @@ const gameServer = new Server({
 // Register the PhysicsRoom
 gameServer.define("physics_room", PhysicsRoom);
 
-// Add a simple health check endpoint
-app.get('/health', (req, res) => {
-  res.status(200).send('OK');
-});
-
 // Define the port - use environment variable for production
 const port = process.env.PORT || 3002;
 
@@ -58,8 +63,10 @@ gameServer.listen(port)
     
     if (process.env.NODE_ENV === 'production') {
       logger.log(`WebSocket server URL: wss://fling-fish-ws.onrender.com`);
+      logger.log(`HTTP server URL: https://fling-fish-ws.onrender.com`);
     } else {
       logger.log(`WebSocket server URL: ws://localhost:${port}`);
+      logger.log(`HTTP server URL: http://localhost:${port}`);
     }
   })
   .catch(err => {
