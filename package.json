@@ -1,0 +1,22 @@
+{
+  "name": "fling-fish-ws",
+  "version": "1.0.0",
+  "description": "WebSocket server for fling.fish physics game",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "tsc -p tsconfig.server.json",
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "@colyseus/schema": "^2.0.4",
+    "@colyseus/ws-transport": "^0.15.1",
+    "colyseus": "^0.15.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.3",
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
